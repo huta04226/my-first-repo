@@ -11,28 +11,18 @@
       min-height: 100vh;
       background: #0a0010;
       color: #f0e6ff;
-      font-family: 'Hiragino Mincho ProN', serif;
+      font-family: 'Hiragino Mincho ProN', 'Yu Mincho', serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      background-image:
-        radial-gradient(ellipse at top, #1a0030 0%, #0a0010 60%),
-        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-image: radial-gradient(ellipse at top, #1a0030 0%, #0a0010 60%);
     }
 
-    .container {
-      max-width: 600px;
-      width: 100%;
-      text-align: center;
-    }
+    .container { max-width: 620px; width: 100%; text-align: center; }
 
-    .torii {
-      font-size: 60px;
-      margin-bottom: 10px;
-      filter: drop-shadow(0 0 20px #aa44ff);
-    }
+    .torii { font-size: 60px; margin-bottom: 10px; filter: drop-shadow(0 0 20px #aa44ff); }
 
     h1 {
       font-size: 2.2em;
@@ -42,20 +32,54 @@
       margin-bottom: 8px;
     }
 
-    .subtitle {
-      color: #9966cc;
-      font-size: 0.9em;
-      letter-spacing: 0.2em;
-      margin-bottom: 40px;
-    }
+    .subtitle { color: #9966cc; font-size: 0.9em; letter-spacing: 0.2em; margin-bottom: 40px; }
 
     .card {
       background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(170, 100, 255, 0.3);
+      border: 1px solid rgba(170,100,255,0.3);
       border-radius: 16px;
       padding: 36px;
       backdrop-filter: blur(10px);
-      box-shadow: 0 0 40px rgba(100, 0, 200, 0.2);
+      box-shadow: 0 0 40px rgba(100,0,200,0.2);
+    }
+
+    /* ジャンル選択 */
+    .genre-label {
+      display: block;
+      color: #cc99ff;
+      font-size: 0.85em;
+      letter-spacing: 0.2em;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .genre-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .genre-btn {
+      flex: 1;
+      padding: 12px 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(170,100,255,0.3);
+      border-radius: 10px;
+      color: #cc99ff;
+      font-size: 0.95em;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.25s;
+    }
+
+    .genre-btn:hover { background: rgba(170,100,255,0.15); }
+
+    .genre-btn.active {
+      background: linear-gradient(135deg, rgba(102,0,204,0.5), rgba(170,68,255,0.4));
+      border-color: #aa44ff;
+      color: #f0e6ff;
+      box-shadow: 0 0 14px rgba(170,68,255,0.4);
     }
 
     label {
@@ -67,25 +91,35 @@
       text-align: left;
     }
 
-    input[type="date"] {
+    .input-row { display: flex; gap: 12px; margin-bottom: 24px; }
+    .input-row > div { flex: 1; }
+
+    input[type="date"], input[type="time"] {
       width: 100%;
       padding: 12px 16px;
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(170, 100, 255, 0.4);
+      border: 1px solid rgba(170,100,255,0.4);
       border-radius: 8px;
       color: #f0e6ff;
-      font-size: 1.1em;
-      margin-bottom: 24px;
+      font-size: 1em;
       outline: none;
       transition: border-color 0.3s;
     }
 
-    input[type="date"]:focus {
+    input[type="date"]:focus, input[type="time"]:focus {
       border-color: #aa44ff;
-      box-shadow: 0 0 10px rgba(170, 68, 255, 0.3);
+      box-shadow: 0 0 10px rgba(170,68,255,0.3);
     }
 
-    button {
+    .time-note {
+      font-size: 0.75em;
+      color: #664488;
+      text-align: left;
+      margin-top: -18px;
+      margin-bottom: 24px;
+    }
+
+    button.submit-btn {
       width: 100%;
       padding: 14px;
       background: linear-gradient(135deg, #6600cc, #aa44ff);
@@ -97,252 +131,332 @@
       cursor: pointer;
       font-family: inherit;
       transition: all 0.3s;
-      box-shadow: 0 4px 20px rgba(100, 0, 200, 0.4);
+      box-shadow: 0 4px 20px rgba(100,0,200,0.4);
     }
 
-    button:hover {
+    button.submit-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 28px rgba(150, 0, 255, 0.5);
+      box-shadow: 0 6px 28px rgba(150,0,255,0.5);
     }
 
-    .result {
-      display: none;
-      margin-top: 32px;
-      text-align: left;
-    }
-
+    /* 結果 */
+    .result { display: none; margin-top: 32px; text-align: left; }
     .result.show { display: block; }
 
-    .result-header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .result-header .star {
-      font-size: 40px;
-    }
-
+    .result-header { text-align: center; margin-bottom: 24px; }
+    .result-header .star { font-size: 48px; }
     .result-header h2 {
-      font-size: 1.4em;
+      font-size: 1.5em;
       color: #e0aaff;
       text-shadow: 0 0 10px #aa44ff;
-      margin: 8px 0 4px;
+      margin: 10px 0 4px;
       letter-spacing: 0.2em;
     }
+    .result-header .element-label { font-size: 0.85em; color: #9966cc; letter-spacing: 0.2em; }
 
-    .result-header .element-label {
-      font-size: 0.85em;
-      color: #9966cc;
+    .genre-badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 18px;
+      border-radius: 20px;
+      font-size: 0.8em;
       letter-spacing: 0.2em;
+      border: 1px solid rgba(170,100,255,0.5);
+      color: #e0aaff;
+      background: rgba(100,0,200,0.2);
     }
 
-    .divider {
-      border: none;
-      border-top: 1px solid rgba(170, 100, 255, 0.2);
-      margin: 20px 0;
-    }
+    .divider { border: none; border-top: 1px solid rgba(170,100,255,0.2); margin: 22px 0; }
 
     .section-title {
       font-size: 0.75em;
       letter-spacing: 0.3em;
       color: #9966cc;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
-    .fortune-text {
-      font-size: 0.95em;
-      line-height: 1.9;
-      color: #ddd0f0;
-    }
+    .fortune-text { font-size: 0.95em; line-height: 2; color: #ddd0f0; }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
     .tag {
       padding: 4px 14px;
       border-radius: 20px;
       font-size: 0.8em;
       letter-spacing: 0.1em;
-      border: 1px solid rgba(170, 100, 255, 0.4);
+      border: 1px solid rgba(170,100,255,0.4);
       color: #cc99ff;
-      background: rgba(100, 0, 200, 0.15);
+      background: rgba(100,0,200,0.15);
     }
 
-    .lucky {
-      display: flex;
-      gap: 12px;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
-
+    .lucky { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
     .lucky-item {
       flex: 1;
-      min-width: 100px;
-      background: rgba(100, 0, 200, 0.1);
-      border: 1px solid rgba(170, 100, 255, 0.2);
+      min-width: 90px;
+      background: rgba(100,0,200,0.1);
+      border: 1px solid rgba(170,100,255,0.2);
       border-radius: 10px;
       padding: 12px;
       text-align: center;
     }
+    .lucky-label { font-size: 0.7em; color: #9966cc; letter-spacing: 0.15em; display: block; margin-bottom: 5px; }
+    .lucky-value { font-size: 0.95em; color: #e0aaff; }
 
-    .lucky-item .lucky-label {
-      font-size: 0.7em;
-      color: #9966cc;
-      letter-spacing: 0.2em;
-      display: block;
-      margin-bottom: 4px;
+    .advice-box {
+      background: rgba(100,0,200,0.1);
+      border: 1px solid rgba(170,100,255,0.25);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-top: 6px;
     }
 
-    .lucky-item .lucky-value {
-      font-size: 1em;
-      color: #e0aaff;
-    }
+    .advice-box p { font-size: 0.95em; line-height: 2; color: #ddd0f0; }
 
-    footer {
-      margin-top: 40px;
-      color: #553377;
-      font-size: 0.75em;
-      letter-spacing: 0.2em;
-    }
+    footer { margin-top: 40px; color: #553377; font-size: 0.75em; letter-spacing: 0.2em; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="torii">⛩️</div>
-    <h1>算命学占い</h1>
-    <p class="subtitle">— 生年月日から運命を紐解く —</p>
+<div class="container">
+  <div class="torii">⛩️</div>
+  <h1>算命学占い</h1>
+  <p class="subtitle">— 生年月日・生まれた時刻から運命を紐解く —</p>
 
-    <div class="card">
-      <label>✦ 生年月日を入力してください</label>
-      <input type="date" id="birthdate" max="2010-12-31">
-      <button onclick="fortune()">🔮 占う</button>
-
-      <div class="result" id="result"></div>
+  <div class="card">
+    <!-- ジャンル選択 -->
+    <span class="genre-label">✦ 占いたいジャンルを選んでください</span>
+    <div class="genre-buttons">
+      <button class="genre-btn active" onclick="selectGenre(this,'love')">💕 恋愛</button>
+      <button class="genre-btn" onclick="selectGenre(this,'work')">💼 仕事</button>
+      <button class="genre-btn" onclick="selectGenre(this,'money')">💰 金運</button>
     </div>
 
-    <footer>© 2026 算命学占い</footer>
+    <!-- 生年月日 -->
+    <div class="input-row">
+      <div>
+        <label>✦ 生年月日</label>
+        <input type="date" id="birthdate" max="2010-12-31">
+      </div>
+      <div>
+        <label>✦ 生まれた時刻</label>
+        <input type="time" id="birthtime">
+      </div>
+    </div>
+    <p class="time-note">※ 時刻不明の場合は空欄でもOKです</p>
+
+    <button class="submit-btn" onclick="fortune()">🔮 占う</button>
+
+    <div class="result" id="result"></div>
   </div>
 
-  <script>
-    const JIKKAN = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
-    const JUNISHI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
-    const GOGYO = ['木','木','火','火','土','土','金','金','水','水'];
-    const GOGYO_EMOJI = { '木':'🌿', '火':'🔥', '土':'🌏', '金':'⚡', '水':'💧' };
+  <footer>© 2026 算命学占い</footer>
+</div>
 
-    const SEIKAKU = {
-      '木': '真っすぐで成長を愛する魂。正義感が強く、人の痛みに敏感で、芽吹く力を持つ。',
-      '火': '情熱と直感で世界を照らす魂。輝くほどに人を引きつけ、変化を恐れない。',
-      '土': '大地のように包み込む魂。信頼と安定を生み、縁の下で人を支える。',
-      '金': '鋭い知性と美意識を持つ魂。本質を見抜き、研ぎ澄まされた感覚で道を切り拓く。',
-      '水': '深く静かに流れる魂。柔軟で知恵深く、どんな形にも適応する力を持つ。',
-    };
+<script>
+  let selectedGenre = 'love';
 
-    const UNSEI = {
-      '木': '今年は新たな種を蒔く年。焦らず丁寧に積み重ねることで、数年後に大きな実りをもたらす。人との縁が広がり、予期しない協力者が現れるだろう。',
-      '火': '行動の年。直感を信じて動いた先に道が開く。ただし感情が先走りやすい時期でもあるため、深呼吸して判断することを忘れずに。',
-      '土': '整える年。これまで積み上げてきたものを固める時期。新しいことへの挑戦よりも、土台を見直し盤石にすることが吉。',
-      '金': '収穫の年。努力の結果が形になりやすい。美に関すること、技術を磨くことに縁がある。自分への投資が将来の宝になる。',
-      '水': '流れに乗る年。無理に逆らわず、自然の流れに身を任せることで道が開ける。内省の時間を大切にすると、深い気づきを得られる。',
-    };
+  function selectGenre(el, genre) {
+    document.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    selectedGenre = genre;
+  }
 
-    const LUCKY_COLOR = {
-      '木': 'グリーン・青緑',
-      '火': 'レッド・オレンジ',
-      '土': 'イエロー・ベージュ',
-      '金': 'ホワイト・シルバー',
-      '水': 'ブラック・ネイビー',
-    };
+  const JIKKAN  = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+  const JUNISHI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+  const GOGYO   = ['木','木','火','火','土','土','金','金','水','水'];
+  const GOGYO_EMOJI = { '木':'🌿','火':'🔥','土':'🌏','金':'⚡','水':'💧' };
 
-    const LUCKY_DIR = {
-      '木': '東',
-      '火': '南',
-      '土': '中央',
-      '金': '西',
-      '水': '北',
-    };
+  // 時刻干支（時柱）
+  const JISHI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+  function hourToJishi(hour) {
+    // 子=23〜1時, 丑=1〜3時... 2時間ずつ
+    return JISHI[Math.floor(((hour + 1) % 24) / 2)];
+  }
 
-    function calcKanshi(year, month, day) {
-      const base = new Date(1900, 0, 1);
-      const target = new Date(year, month - 1, day);
-      const diff = Math.floor((target - base) / (1000 * 60 * 60 * 24));
-      const jikkanIdx = ((diff % 10) + 10) % 10;
-      const junishiIdx = ((diff % 12) + 12) % 12;
-      return {
-        jikkan: JIKKAN[jikkanIdx],
-        junishi: JUNISHI[junishiIdx],
-        gogyo: GOGYO[jikkanIdx],
-        idx: jikkanIdx,
-      };
+  function calcKanshi(year, month, day) {
+    const base   = new Date(1900, 0, 1);
+    const target = new Date(year, month - 1, day);
+    const diff   = Math.floor((target - base) / 86400000);
+    const ji = ((diff % 10) + 10) % 10;
+    const si = ((diff % 12) + 12) % 12;
+    return { jikkan: JIKKAN[ji], junishi: JUNISHI[si], gogyo: GOGYO[ji] };
+  }
+
+  // ============ テキスト定義 ============
+
+  const SEIKAKU = {
+    '木': '甲乙の木の命式を持つあなたは、まっすぐ天へと伸びる大樹のような魂の持ち主です。正義感と誠実さを核に持ち、どんな困難でも根を張って乗り越える力があります。人の痛みに敏感で、弱者に寄り添う姿勢が人望を集めます。一方で、自分の信念を曲げないがゆえに頑固に見られることも。内なる柔軟性を育てることが、さらなる成長をもたらします。',
+    '火': '丙丁の火の命式を持つあなたは、太陽のように周囲を明るく照らす魂の持ち主です。直感力と行動力に優れ、ひとたび情熱に火がつくと誰も止められない推進力を発揮します。人を惹きつけるカリスマ性があり、場の空気を一変させる力を持ちます。ただし燃えすぎると燃え尽きやすい面も。意識的に「静」の時間を設けることで、炎は長く輝き続けます。',
+    '土': '戊己の土の命式を持つあなたは、大地のように万物を育む魂の持ち主です。揺るぎない安定感と深い包容力で、周囲の人々の拠り所となります。忍耐強く、長い時間をかけて物事を育てることが得意。信頼を積み重ねることで、やがて大きな山脈のような存在感を放つようになります。変化を嫌う面がありますが、少しの冒険心が新たな豊かさをもたらします。',
+    '金': '庚辛の金の命式を持つあなたは、研ぎ澄まされた刀のような魂の持ち主です。鋭い知性と高い美意識を持ち、物事の本質を見抜く眼力があります。完璧主義的な面があり、自分にも他人にも高い基準を求めます。その厳しさが磨かれた技術や信頼へと昇華されるとき、あなたは唯一無二の輝きを放ちます。時に鋭すぎる言葉が関係を傷つけることも。柔らかさを纏うことで、刃は剣ではなく宝剣となります。',
+    '水': '壬癸の水の命式を持つあなたは、深い海のような魂の持ち主です。どんな形の器にも適応する柔軟性と、底知れぬ知恵を秘めています。感受性が豊かで、言語化されていない空気や感情を読み取る力に長けています。表面は穏やかでも、内側には強い意志の流れが通っています。流されやすい面もありますが、それは共感力の高さの裏返し。自分という源流を持つことで、水は大河となります。',
+  };
+
+  const UNSEI = {
+    '木': '今年はあなたにとって「種を蒔く年」です。目に見える結果はまだ少ないかもしれませんが、今行動したことが数年後に大きな実りをもたらします。人との出会いを大切にしてください。特に年上の存在があなたの才能を引き出す鍵を持っています。焦らず、丁寧に、一歩一歩。木は急いで育ちません。',
+    '火': '今年はあなたにとって「燃え上がる年」です。直感を信じて動いてください。チャンスは電光石火で訪れ、考えすぎると逃します。ただし感情が先走ると判断を誤ることも。大きな決断の前は一晩置くことを意識して。周囲を巻き込む力が最大化する時期でもあり、リーダーシップを発揮する場面が増えるでしょう。',
+    '土': '今年はあなたにとって「整える年」です。新しいことを始めるよりも、これまで積み上げてきた土台を固める時期です。人間関係の棚卸し、生活習慣の見直し、蓄えの確認。地味に見えるこれらの行動が、来年以降の飛躍を支えます。急がば回れ。土の精神で着実に歩んでください。',
+    '金': '今年はあなたにとって「収穫の年」です。これまでの努力が形になりやすく、評価や報酬として返ってくる場面が増えます。スキルアップや自己投資に使ったお金・時間は必ず回収されます。美的センスや専門性を活かす機会に恵まれるでしょう。ただし「完璧でないとダメ」という思考が機会を逃すこともあります。80点で動く勇気も持ってください。',
+    '水': '今年はあなたにとって「流れに乗る年」です。無理に逆らわず、自然の流れに身を任せることで道が開けます。内省の時間を意識的に作ると、深い気づきと創造のアイデアが湧き出てきます。直感が冴える時期でもあり、夢や閃きの中にヒントが隠れていることも。信頼できる人に心を開くことで、新たな流れが生まれます。',
+  };
+
+  const GENRE_DATA = {
+    love: {
+      icon: '💕',
+      label: '恋愛運',
+      text: {
+        '木': {
+          main: '木の命式を持つあなたの恋愛は、ゆっくりと深く根を張るタイプです。一目惚れよりも、時間をかけて育まれる愛に強さがあります。誠実さと誠意を大切にするあなたは、相手からの信頼を着実に積み重ねます。今年は縁が広がりやすく、人を通じた出会いに恵まれます。気になる相手には、まず友人として近づくことが開花への近道。',
+          advice: '【アドバイス】思いを伝えるタイミングは「春の芽吹き」のイメージで。焦らず自然体でいることが最大の魅力になります。緑や自然を感じる場所でのデートが吉。',
+        },
+        '火': {
+          main: '火の命式を持つあなたの恋愛は、燃え上がるような情熱と衝動が特徴です。好きになったら真っすぐ、全力で向かっていく姿勢は相手の心を揺さぶります。今年は恋のチャンスが突然訪れやすい時期。直感で「この人だ」と感じたら、勇気を持って一歩踏み出してください。ただし情熱が冷めるのも早いため、炎を長く保つ工夫を。',
+          advice: '【アドバイス】感情のまま行動することが多いあなたですが、相手のペースも尊重することで関係が長続きします。夜景や星空が見えるデートが縁を深めます。',
+        },
+        '土': {
+          main: '土の命式を持つあなたの恋愛は、包み込むような安心感と深い愛情が持ち味です。派手さはないけれど、一緒にいると心が落ち着く存在として相手から慕われます。今年は長く続く縁が結ばれやすい時期。焦らず、日常の中で少しずつ距離を縮めていくことで、揺るぎない関係が築かれます。',
+          advice: '【アドバイス】料理や手作りのものを通じて愛情表現するのが吉。相手の話をじっくり聞く姿勢があなたの最大の武器です。',
+        },
+        '金': {
+          main: '金の命式を持つあなたの恋愛は、洗練された美意識と高い理想が基盤にあります。妥協できないこだわりがあるため、出会いの数より質を重視します。今年は自分を磨くことで理想の相手が引き寄せられる時期。外見だけでなく内面の知性や感性を高めることが、素敵な縁を呼び込みます。',
+          advice: '【アドバイス】完璧を求めすぎず、相手の「いいところ」に目を向ける練習を。美術館やコンサートなど美を感じる空間でのデートが関係を深めます。',
+        },
+        '水': {
+          main: '水の命式を持つあなたの恋愛は、深い共感と繊細な感受性が特徴です。相手の気持ちを察する能力に長けており、言葉以上の何かで心が通じ合う経験をすることがあります。今年は内面からの魅力が増す時期。自分の感性や想いを素直に表現することで、深くつながれる相手と出会えます。',
+          advice: '【アドバイス】自分の気持ちを言葉にする練習をしてみましょう。海や川など水辺でのデートがあなたの魅力を最大限に引き出します。',
+        },
+      },
+    },
+    work: {
+      icon: '💼',
+      label: '仕事運',
+      text: {
+        '木': {
+          main: '木の命式を持つあなたの仕事運は、長期的な成長と信頼の積み重ねにあります。短期的な結果よりも、コツコツと実力を蓄えることで評価されるタイプ。正義感と誠実さが職場での信頼を生み出し、気づけば周囲から頼られる存在になっています。今年は新しいスキルや知識への投資が吉。学びが数年後の大きな幹となります。',
+          advice: '【アドバイス】チームをまとめる役割が回ってきたら積極的に受けてみましょう。あなたの芯の強さがメンバーの安心感になります。',
+        },
+        '火': {
+          main: '火の命式を持つあなたの仕事運は、情熱と推進力が最大の武器です。アイデアを生み出し、周囲を巻き込んで物事を動かす力があります。今年は新しいプロジェクトや挑戦的な仕事との縁が強まる時期。「面白そう」という直感を信じて飛び込んでください。スポットライトが当たりやすい年でもあり、実力を示す機会が増えます。',
+          advice: '【アドバイス】熱量があるぶん、計画や資料の詰めを丁寧に。信頼できる冷静な仲間と組むことで、成果が大きく跳ね上がります。',
+        },
+        '土': {
+          main: '土の命式を持つあなたの仕事運は、安定感と継続力にあります。地道な作業や長期プロジェクトで真価を発揮し、組織の縁の下の力持ちとして欠かせない存在になります。今年は現在の仕事の質を高めることに集中すると評価が上がります。転職や部署異動よりも、今いる場所で深く掘り下げることが吉。',
+          advice: '【アドバイス】感謝の言葉を周囲に伝える機会を増やしてみましょう。あなたの誠実さが人の心を動かし、思わぬサポートを呼び込みます。',
+        },
+        '金': {
+          main: '金の命式を持つあなたの仕事運は、専門性と洗練された技術にあります。完璧主義なまでの仕事へのこだわりが、他の追随を許さないクオリティを生み出します。今年は自分の得意分野を極める年。資格取得や専門スキルの向上に時間を使うことで、来年以降の大きな飛躍の土台になります。',
+          advice: '【アドバイス】「できていること」に目を向ける習慣を持つと、自信が仕事の質をさらに高めます。整理整頓された環境があなたの能力を最大化します。',
+        },
+        '水': {
+          main: '水の命式を持つあなたの仕事運は、柔軟な発想と人心掌握力にあります。場の空気を読む力と適応力の高さで、どんな職場でも馴染めます。今年はコミュニケーションを通じた縁が仕事を動かします。普段から広い人脈を保つことで、思わぬ形で好機が訪れます。クリエイティブな分野との縁も強まる時期です。',
+          advice: '【アドバイス】アイデアはメモに残す習慣を。流れるように出てくる発想の中に、大きなビジネスのヒントが眠っています。',
+        },
+      },
+    },
+    money: {
+      icon: '💰',
+      label: '金運',
+      text: {
+        '木': {
+          main: '木の命式を持つあなたの金運は、焦らず育てることで大きく花開くタイプです。一攫千金より、長期的な積み立てや投資が向いています。今年は「学び」にお金を使うことが将来の大きなリターンをもたらします。スキルアップや資格取得への投資を惜しまないでください。お金の流れを手帳に書くだけで金運が上がりやすい時期でもあります。',
+          advice: '【アドバイス】衝動買いを避け、「本当に必要か」を一晩考える習慣を。緑色の財布や植物を部屋に置くと財運が安定します。',
+        },
+        '火': {
+          main: '火の命式を持つあなたの金運は、行動力と縁によって動きます。臆せず動いた人にお金が集まりやすい命式です。今年は副業や新たな収入源への挑戦が吉。ただし衝動的な大きな出費には注意が必要。「熱があるうちに決める」のではなく、数日置いてから判断する癖をつけましょう。',
+          advice: '【アドバイス】赤やオレンジのアイテムを財布の中に入れると行動運が上がります。人への投資（ごちそうする、プレゼントする）がめぐりめぐってお金となって返ってきます。',
+        },
+        '土': {
+          main: '土の命式を持つあなたの金運は、着実な蓄財と堅実な管理にあります。コツコツと積み上げる力があり、気づけば周囲より多くの貯蓄を持っているタイプです。今年は固定費の見直しと長期の貯蓄プランを立てることが吉。不動産や長期積み立て投資との相性が良い時期です。',
+          advice: '【アドバイス】黄色やゴールドのアイテムを財布に取り入れると金運アップ。節約と投資のバランスを意識することで資産が着実に育ちます。',
+        },
+        '金': {
+          main: '金の命式を持つあなたの金運は、質の高い判断力にあります。お金の使い道に関するセンスが鋭く、価値あるものに正確に投資できます。今年は自分の専門性を高めることへの出費が最も高いリターンをもたらします。高品質なものへの投資を惜しまないこと。安物買いの銭失いが最も損になる命式です。',
+          advice: '【アドバイス】白やシルバーのシンプルな財布が金運を高めます。整理整頓された財布・家計管理が金運の基本。無駄なカードや領収書を財布から出しましょう。',
+        },
+        '水': {
+          main: '水の命式を持つあなたの金運は、流れとタイミングにあります。チャンスの波に乗るときに大きくお金が動く命式です。今年は人との繋がりを通じた金運上昇が見込めます。良い情報は人から流れてくることが多い時期。信頼できる人間関係への投資が金運を高めます。',
+          advice: '【アドバイス】黒やネイビーの財布が吉。お金に感謝する習慣（使うたびに「ありがとう」と心の中で言う）を持つと、不思議とお金が戻ってきやすくなります。',
+        },
+      },
+    },
+  };
+
+  const LUCKY_COLOR = { '木':'グリーン・青緑', '火':'レッド・オレンジ', '土':'イエロー・ベージュ', '金':'ホワイト・シルバー', '水':'ブラック・ネイビー' };
+  const LUCKY_DIR   = { '木':'東', '火':'南', '土':'中央', '金':'西', '水':'北' };
+  const KEYWORDS    = {
+    '木':['成長','正義感','向上心','創造','誠実'],
+    '火':['情熱','直感','カリスマ','行動力','明るさ'],
+    '土':['誠実','安定','包容力','忍耐','信頼'],
+    '金':['知性','美意識','決断力','洗練','鋭敏'],
+    '水':['知恵','適応力','感受性','神秘','深さ'],
+  };
+
+  function fortune() {
+    const dateVal = document.getElementById('birthdate').value;
+    const timeVal = document.getElementById('birthtime').value;
+    if (!dateVal) { alert('生年月日を入力してください'); return; }
+
+    const [y, m, d] = dateVal.split('-').map(Number);
+    const ks = calcKanshi(y, m, d);
+    const emoji = GOGYO_EMOJI[ks.gogyo];
+
+    let timeInfo = '';
+    if (timeVal) {
+      const hour = parseInt(timeVal.split(':')[0]);
+      const jishi = hourToJishi(hour);
+      timeInfo = `<br><span style="font-size:0.8em;color:#9966cc;letter-spacing:0.15em">時支：${jishi}時生まれ</span>`;
     }
 
-    function fortune() {
-      const val = document.getElementById('birthdate').value;
-      if (!val) { alert('生年月日を入力してください'); return; }
+    const gd = GENRE_DATA[selectedGenre];
+    const genreText = gd.text[ks.gogyo];
 
-      const [y, m, d] = val.split('-').map(Number);
-      const ks = calcKanshi(y, m, d);
-      const emoji = GOGYO_EMOJI[ks.gogyo];
+    const html = `
+      <div class="result-header">
+        <div class="star">${emoji}</div>
+        <h2>${ks.jikkan}${ks.junishi}（${ks.gogyo}の命式）</h2>
+        <div class="element-label">干支 ✦ ${ks.jikkan}${ks.junishi}${timeInfo}</div>
+        <span class="genre-badge">${gd.icon} ${gd.label}</span>
+      </div>
 
-      const html = `
-        <div class="result-header">
-          <div class="star">${emoji}</div>
-          <h2>${ks.jikkan}${ks.junishi}（${ks.gogyo}の命式）</h2>
-          <div class="element-label">あなたの干支 ✦ ${ks.jikkan}${ks.junishi}</div>
+      <hr class="divider">
+
+      <p class="section-title">◆ あなたの命式・本質</p>
+      <p class="fortune-text">${SEIKAKU[ks.gogyo]}</p>
+      <div class="tags">${KEYWORDS[ks.gogyo].map(k=>`<span class="tag">${k}</span>`).join('')}</div>
+
+      <hr class="divider">
+
+      <p class="section-title">◆ 今年の全体運</p>
+      <p class="fortune-text">${UNSEI[ks.gogyo]}</p>
+
+      <hr class="divider">
+
+      <p class="section-title">◆ ${gd.label}</p>
+      <p class="fortune-text">${genreText.main}</p>
+      <div class="advice-box"><p>${genreText.advice}</p></div>
+
+      <hr class="divider">
+
+      <p class="section-title">◆ ラッキー情報</p>
+      <div class="lucky">
+        <div class="lucky-item">
+          <span class="lucky-label">ラッキーカラー</span>
+          <span class="lucky-value">${LUCKY_COLOR[ks.gogyo]}</span>
         </div>
-
-        <hr class="divider">
-
-        <p class="section-title">◆ 命式・性格</p>
-        <p class="fortune-text">${SEIKAKU[ks.gogyo]}</p>
-
-        <div class="tags">
-          ${getKeywords(ks.gogyo).map(k => `<span class="tag">${k}</span>`).join('')}
+        <div class="lucky-item">
+          <span class="lucky-label">吉方位</span>
+          <span class="lucky-value">${LUCKY_DIR[ks.gogyo]}</span>
         </div>
-
-        <hr class="divider">
-
-        <p class="section-title">◆ 今年の運勢</p>
-        <p class="fortune-text">${UNSEI[ks.gogyo]}</p>
-
-        <hr class="divider">
-
-        <p class="section-title">◆ ラッキー情報</p>
-        <div class="lucky">
-          <div class="lucky-item">
-            <span class="lucky-label">ラッキーカラー</span>
-            <span class="lucky-value">${LUCKY_COLOR[ks.gogyo]}</span>
-          </div>
-          <div class="lucky-item">
-            <span class="lucky-label">吉方位</span>
-            <span class="lucky-value">${LUCKY_DIR[ks.gogyo]}</span>
-          </div>
-          <div class="lucky-item">
-            <span class="lucky-label">守護の五行</span>
-            <span class="lucky-value">${emoji} ${ks.gogyo}</span>
-          </div>
+        <div class="lucky-item">
+          <span class="lucky-label">守護の五行</span>
+          <span class="lucky-value">${emoji} ${ks.gogyo}</span>
         </div>
-      `;
+      </div>
+    `;
 
-      const result = document.getElementById('result');
-      result.innerHTML = html;
-      result.classList.add('show');
-      result.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function getKeywords(gogyo) {
-      const map = {
-        '木': ['成長','正義感','向上心','創造','柔軟性'],
-        '火': ['情熱','直感','カリスマ','行動力','明るさ'],
-        '土': ['誠実','安定','包容力','忍耐','信頼'],
-        '金': ['知性','美意識','決断力','洗練','鋭敏'],
-        '水': ['知恵','適応力','感受性','神秘','深さ'],
-      };
-      return map[gogyo];
-    }
-  </script>
+    const result = document.getElementById('result');
+    result.innerHTML = html;
+    result.classList.add('show');
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
 </body>
 </html>
