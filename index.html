@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>算命学占い</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0a0010;
+      color: #f0e6ff;
+      font-family: 'Hiragino Mincho ProN', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background-image:
+        radial-gradient(ellipse at top, #1a0030 0%, #0a0010 60%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .torii {
+      font-size: 60px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 0 20px #aa44ff);
+    }
+
+    h1 {
+      font-size: 2.2em;
+      letter-spacing: 0.3em;
+      color: #e0aaff;
+      text-shadow: 0 0 20px #aa44ff;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #9966cc;
+      font-size: 0.9em;
+      letter-spacing: 0.2em;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(170, 100, 255, 0.3);
+      border-radius: 16px;
+      padding: 36px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 40px rgba(100, 0, 200, 0.2);
+    }
+
+    label {
+      display: block;
+      color: #cc99ff;
+      font-size: 0.85em;
+      letter-spacing: 0.2em;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(170, 100, 255, 0.4);
+      border-radius: 8px;
+      color: #f0e6ff;
+      font-size: 1.1em;
+      margin-bottom: 24px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input[type="date"]:focus {
+      border-color: #aa44ff;
+      box-shadow: 0 0 10px rgba(170, 68, 255, 0.3);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #6600cc, #aa44ff);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.1em;
+      letter-spacing: 0.3em;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(100, 0, 200, 0.4);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(150, 0, 255, 0.5);
+    }
+
+    .result {
+      display: none;
+      margin-top: 32px;
+      text-align: left;
+    }
+
+    .result.show { display: block; }
+
+    .result-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .result-header .star {
+      font-size: 40px;
+    }
+
+    .result-header h2 {
+      font-size: 1.4em;
+      color: #e0aaff;
+      text-shadow: 0 0 10px #aa44ff;
+      margin: 8px 0 4px;
+      letter-spacing: 0.2em;
+    }
+
+    .result-header .element-label {
+      font-size: 0.85em;
+      color: #9966cc;
+      letter-spacing: 0.2em;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(170, 100, 255, 0.2);
+      margin: 20px 0;
+    }
+
+    .section-title {
+      font-size: 0.75em;
+      letter-spacing: 0.3em;
+      color: #9966cc;
+      margin-bottom: 10px;
+    }
+
+    .fortune-text {
+      font-size: 0.95em;
+      line-height: 1.9;
+      color: #ddd0f0;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      letter-spacing: 0.1em;
+      border: 1px solid rgba(170, 100, 255, 0.4);
+      color: #cc99ff;
+      background: rgba(100, 0, 200, 0.15);
+    }
+
+    .lucky {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .lucky-item {
+      flex: 1;
+      min-width: 100px;
+      background: rgba(100, 0, 200, 0.1);
+      border: 1px solid rgba(170, 100, 255, 0.2);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .lucky-item .lucky-label {
+      font-size: 0.7em;
+      color: #9966cc;
+      letter-spacing: 0.2em;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .lucky-item .lucky-value {
+      font-size: 1em;
+      color: #e0aaff;
+    }
+
+    footer {
+      margin-top: 40px;
+      color: #553377;
+      font-size: 0.75em;
+      letter-spacing: 0.2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="torii">⛩️</div>
+    <h1>算命学占い</h1>
+    <p class="subtitle">— 生年月日から運命を紐解く —</p>
+
+    <div class="card">
+      <label>✦ 生年月日を入力してください</label>
+      <input type="date" id="birthdate" max="2010-12-31">
+      <button onclick="fortune()">🔮 占う</button>
+
+      <div class="result" id="result"></div>
+    </div>
+
+    <footer>© 2026 算命学占い</footer>
+  </div>
+
+  <script>
+    const JIKKAN = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+    const JUNISHI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+    const GOGYO = ['木','木','火','火','土','土','金','金','水','水'];
+    const GOGYO_EMOJI = { '木':'🌿', '火':'🔥', '土':'🌏', '金':'⚡', '水':'💧' };
+
+    const SEIKAKU = {
+      '木': '真っすぐで成長を愛する魂。正義感が強く、人の痛みに敏感で、芽吹く力を持つ。',
+      '火': '情熱と直感で世界を照らす魂。輝くほどに人を引きつけ、変化を恐れない。',
+      '土': '大地のように包み込む魂。信頼と安定を生み、縁の下で人を支える。',
+      '金': '鋭い知性と美意識を持つ魂。本質を見抜き、研ぎ澄まされた感覚で道を切り拓く。',
+      '水': '深く静かに流れる魂。柔軟で知恵深く、どんな形にも適応する力を持つ。',
+    };
+
+    const UNSEI = {
+      '木': '今年は新たな種を蒔く年。焦らず丁寧に積み重ねることで、数年後に大きな実りをもたらす。人との縁が広がり、予期しない協力者が現れるだろう。',
+      '火': '行動の年。直感を信じて動いた先に道が開く。ただし感情が先走りやすい時期でもあるため、深呼吸して判断することを忘れずに。',
+      '土': '整える年。これまで積み上げてきたものを固める時期。新しいことへの挑戦よりも、土台を見直し盤石にすることが吉。',
+      '金': '収穫の年。努力の結果が形になりやすい。美に関すること、技術を磨くことに縁がある。自分への投資が将来の宝になる。',
+      '水': '流れに乗る年。無理に逆らわず、自然の流れに身を任せることで道が開ける。内省の時間を大切にすると、深い気づきを得られる。',
+    };
+
+    const LUCKY_COLOR = {
+      '木': 'グリーン・青緑',
+      '火': 'レッド・オレンジ',
+      '土': 'イエロー・ベージュ',
+      '金': 'ホワイト・シルバー',
+      '水': 'ブラック・ネイビー',
+    };
+
+    const LUCKY_DIR = {
+      '木': '東',
+      '火': '南',
+      '土': '中央',
+      '金': '西',
+      '水': '北',
+    };
+
+    function calcKanshi(year, month, day) {
+      const base = new Date(1900, 0, 1);
+      const target = new Date(year, month - 1, day);
+      const diff = Math.floor((target - base) / (1000 * 60 * 60 * 24));
+      const jikkanIdx = ((diff % 10) + 10) % 10;
+      const junishiIdx = ((diff % 12) + 12) % 12;
+      return {
+        jikkan: JIKKAN[jikkanIdx],
+        junishi: JUNISHI[junishiIdx],
+        gogyo: GOGYO[jikkanIdx],
+        idx: jikkanIdx,
+      };
+    }
+
+    function fortune() {
+      const val = document.getElementById('birthdate').value;
+      if (!val) { alert('生年月日を入力してください'); return; }
+
+      const [y, m, d] = val.split('-').map(Number);
+      const ks = calcKanshi(y, m, d);
+      const emoji = GOGYO_EMOJI[ks.gogyo];
+
+      const html = `
+        <div class="result-header">
+          <div class="star">${emoji}</div>
+          <h2>${ks.jikkan}${ks.junishi}（${ks.gogyo}の命式）</h2>
+          <div class="element-label">あなたの干支 ✦ ${ks.jikkan}${ks.junishi}</div>
+        </div>
+
+        <hr class="divider">
+
+        <p class="section-title">◆ 命式・性格</p>
+        <p class="fortune-text">${SEIKAKU[ks.gogyo]}</p>
+
+        <div class="tags">
+          ${getKeywords(ks.gogyo).map(k => `<span class="tag">${k}</span>`).join('')}
+        </div>
+
+        <hr class="divider">
+
+        <p class="section-title">◆ 今年の運勢</p>
+        <p class="fortune-text">${UNSEI[ks.gogyo]}</p>
+
+        <hr class="divider">
+
+        <p class="section-title">◆ ラッキー情報</p>
+        <div class="lucky">
+          <div class="lucky-item">
+            <span class="lucky-label">ラッキーカラー</span>
+            <span class="lucky-value">${LUCKY_COLOR[ks.gogyo]}</span>
+          </div>
+          <div class="lucky-item">
+            <span class="lucky-label">吉方位</span>
+            <span class="lucky-value">${LUCKY_DIR[ks.gogyo]}</span>
+          </div>
+          <div class="lucky-item">
+            <span class="lucky-label">守護の五行</span>
+            <span class="lucky-value">${emoji} ${ks.gogyo}</span>
+          </div>
+        </div>
+      `;
+
+      const result = document.getElementById('result');
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function getKeywords(gogyo) {
+      const map = {
+        '木': ['成長','正義感','向上心','創造','柔軟性'],
+        '火': ['情熱','直感','カリスマ','行動力','明るさ'],
+        '土': ['誠実','安定','包容力','忍耐','信頼'],
+        '金': ['知性','美意識','決断力','洗練','鋭敏'],
+        '水': ['知恵','適応力','感受性','神秘','深さ'],
+      };
+      return map[gogyo];
+    }
+  </script>
+</body>
+</html>
